@@ -1,0 +1,52 @@
+﻿{
+  "intents": [
+    {
+      "intent": "ShowSynopsisIntent",
+      "slots": [
+        {
+          "name": "showtitle",
+          "type": "showname"
+        }
+      ]
+    },
+    {
+      "intent": "ShowStartIntent",
+      "slots": [
+        {
+          "name": "showtitle",
+          "type": "showname"
+        }
+      ]
+    },
+    {
+      "intent": "ShowNextEpisodeIntent",
+      "slots": [
+        {
+          "name": "showtitle",
+          "type": "showname"
+        }
+      ]
+    },
+    {
+      "intent": "ShowCastIntent",
+      "slots": [
+        {
+          "name": "showtitle",
+          "type": "showname"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.CancelIntent",
+      "slots": []
+    },
+    {
+      "intent": "AMAZON.StopIntent",
+      "slots": []
+    },
+    {
+      "intent": "AMAZON.HelpIntent",
+      "slots": []
+    }
+  ] 
+}

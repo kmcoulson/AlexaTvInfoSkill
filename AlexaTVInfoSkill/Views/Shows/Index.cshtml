@@ -1,0 +1,12 @@
+﻿@model List<string>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@foreach (var show in Model.OrderBy(x => x))
+{
+    <span>@show</span><br/>
+}
