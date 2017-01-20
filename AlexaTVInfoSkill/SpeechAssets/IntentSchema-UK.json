@@ -33,6 +33,14 @@
         {
           "name": "showtitle",
           "type": "showname"
+        },
+        {
+          "name": "character",
+          "type": "name"
+        },
+        {
+          "name": "person",
+          "type": "name"
         }
       ]
     },

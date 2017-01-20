@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using AlexaTVInfoSkill.Service.Model;
+﻿using AlexaTVInfoSkill.Service.Model;
 
 namespace AlexaTVInfoSkill.Service
 {
@@ -24,7 +22,7 @@ namespace AlexaTVInfoSkill.Service
 
         private AlexaResponse Launch()
         {
-            return new AlexaResponse("Welcome to the TV Info skill, you can use this skill to ask about TV Shows.", false)
+            return new AlexaResponse("Welcome to the TV Info skill, you can use this skill to ask about TV Shows. What would you like to know?", false)
             {
                 Response =
                 {
@@ -32,6 +30,13 @@ namespace AlexaTVInfoSkill.Service
                     {
                         Title = "Launched",
                         Content = "Welcome to the TV Info skill."
+                    },
+                    Reprompt = new AlexaResponse.ResponseAttributes.RepromptAttributes
+                    {
+                        OutputSpeech = new AlexaResponse.ResponseAttributes.OutputSpeechAttributes
+                        {
+                            Text = "What would you like to know?"
+                        }
                     }
                 }
             };
@@ -47,6 +52,8 @@ namespace AlexaTVInfoSkill.Service
                 case "ShowStartIntent":
                 case "ShowNextEpisodeIntent":
                 case "ShowCastIntent":
+                case "ShowPersonIntent":
+                case "ShowCharacterIntent":
                     response = AlexaTvShowIntentHandler.GetTvShowResponse(request.Request.Intent.Name, request);
                     break;
                 case "AMAZON.CancelIntent":
@@ -64,7 +71,7 @@ namespace AlexaTVInfoSkill.Service
 
         private static AlexaResponse GetHelpResponse()
         {
-            return new AlexaResponse("You can ask TV Info...");
+            return new AlexaResponse("You can ask TV Info: what your favourite show is about, when your show is next on, who is in your show or who plays your favourite character in a show.");
         }
 
         private static AlexaResponse GetSessionEndedResponse()

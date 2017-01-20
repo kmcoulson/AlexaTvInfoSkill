@@ -251,6 +251,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\AlexaRequestValidationHandler.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -266,6 +267,9 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\TVInfoIcon-108.png" />
+    <Content Include="Images\TVInfoIcon-512.png" />
+    <Content Include="Images\TVInfoIcon.fw.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -305,7 +309,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="SpeechAssets\SampleUtterances.txt" />
+    <Content Include="SpeechAssets\SampleUtterances-UK.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -321,8 +325,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="SpeechAssets\IntentSchema.json" />
+    <Content Include="SpeechAssets\IntentSchema-UK.json" />
     <Content Include="Views\Shows\Index.cshtml" />
+    <Content Include="SpeechAssets\IntentSchema-US.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

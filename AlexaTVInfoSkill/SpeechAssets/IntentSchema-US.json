@@ -1,0 +1,60 @@
+﻿{
+  "intents": [
+    {
+      "intent": "ShowSynopsisIntent",
+      "slots": [
+        {
+          "name": "showtitle",
+          "type": "AMAZON.TVSeries"
+        }
+      ]
+    },
+    {
+      "intent": "ShowStartIntent",
+      "slots": [
+        {
+          "name": "showtitle",
+          "type": "AMAZON.TVSeries"
+        }
+      ]
+    },
+    {
+      "intent": "ShowNextEpisodeIntent",
+      "slots": [
+        {
+          "name": "showtitle",
+          "type": "AMAZON.TVSeries"
+        }
+      ]
+    },
+    {
+      "intent": "ShowCastIntent",
+      "slots": [
+        {
+          "name": "showtitle",
+          "type": "AMAZON.TVSeries"
+        },
+        {
+          "name": "character",
+          "type": "AMAZON.FictionalCharacter"
+        },
+        {
+          "name": "person",
+          "type": "AMAZON.Actor"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.CancelIntent",
+      "slots": []
+    },
+    {
+      "intent": "AMAZON.StopIntent",
+      "slots": []
+    },
+    {
+      "intent": "AMAZON.HelpIntent",
+      "slots": []
+    }
+  ] 
+}

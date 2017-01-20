@@ -1,0 +1,39 @@
+﻿ShowSynopsisIntent what is {showtitle} about
+ShowSynopsisIntent what {showtitle} is about
+ShowSynopsisIntent what the synopsis is for {showtitle}
+ShowSynopsisIntent what the premise of {showtitle} is
+
+ShowStartIntent when {showtitle} started
+ShowStartIntent when the first episode of {showtitle} aired
+ShowStartIntent when was the first episode of {showtitle}
+
+ShowNextEpisodeIntent when the next episode of {showtitle} is on
+ShowNextEpisodeIntent when {showtitle} is on
+ShowNextEpisodeIntent when {showtitle} is on next
+ShowNextEpisodeIntent when {showtitle} is next on
+ShowNextEpisodeIntent when {showtitle} back is on
+
+ShowCastIntent who stars in {showtitle}
+ShowCastIntent who starred in {showtitle}
+ShowCastIntent who acts in {showtitle}
+ShowCastIntent who acted in {showtitle}
+ShowCastIntent name the {showtitle} cast
+
+ShowCastIntent who {person} played in {showtitle}
+ShowCastIntent who {person} plays in {showtitle}
+ShowCastIntent who {person} is in {showtitle}
+ShowCastIntent which character {person} plays in {showtitle}
+ShowCastIntent who {person} was in {showtitle}
+ShowCastIntent who {person} starred as in {showtitle}
+ShowCastIntent who {person} portrayed in {showtitle}
+
+ShowCastIntent who plays {character} in {showtitle}
+ShowCastIntent who played {character} in {showtitle}
+ShowCastIntent who {character} is played by in {showtitle}
+ShowCastIntent which actor played {character} in {showtitle}
+ShowCastIntent who starred as {character} in {showtitle}
+ShowCastIntent who portrayed {character} in {showtitle}
+
+AMAZON.CancelIntent Stop all responses
+AMAZON.StopIntent Stop response
+AMAZON.HelpIntent Get some help

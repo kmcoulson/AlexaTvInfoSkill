@@ -52,7 +52,6 @@ namespace AlexaTVInfoSkill.Service
             return response;
         }
 
-
         public static TvEpisode GetEpisode(int id)
         {
             var endPoint = string.Concat("/episodes/", id);
