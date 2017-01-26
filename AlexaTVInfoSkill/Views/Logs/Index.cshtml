@@ -1,0 +1,30 @@
+﻿@model IEnumerable<AlexaTVInfoSkill.Service.Model.RequestLog>
+
+@{
+    ViewBag.Title = "Logs";
+}
+
+<h2>TV Info Request Logs</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date / Time</th>
+            <th>Intent</th>
+            <th>Show</th>
+            <th>Response</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        @foreach (var requestLog in Model.OrderByDescending(x => x.TimeStamp))
+        {
+            <tr>
+                <td>@requestLog.TimeStamp.ToString("g")</td>
+                <td>@requestLog.IntentName</td>
+                <td>@requestLog.ShowName</td>
+                <td>@requestLog.ResponseText</td>
+            </tr>
+        }
+    </tbody>
+</table>

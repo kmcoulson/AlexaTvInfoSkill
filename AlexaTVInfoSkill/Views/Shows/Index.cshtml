@@ -1,12 +1,12 @@
-﻿@model List<string>
+﻿@model List<AlexaTVInfoSkill.Service.Model.TvShow>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Shows</h2>
 
 @foreach (var show in Model.OrderBy(x => x))
 {
-    <span>@show</span><br/>
+    <span>@show.Name</span><br/>
 }
