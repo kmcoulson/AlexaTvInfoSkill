@@ -71,7 +71,7 @@ namespace AlexaTVInfoSkill.Service
 
         private static AlexaResponse GetHelpResponse()
         {
-            return new AlexaResponse("You can ask TV Info: what your favourite show is about, when your show is next on, who is in your show or who plays your favourite character in a show.");
+            return new AlexaResponse("You can ask TV Info: what your favourite show is about, when your show is next on, who is in your show or who plays your favourite character in a show. What would you like to know?", false);
         }
 
         private static AlexaResponse GetSessionEndedResponse()
