@@ -21,12 +21,24 @@ textarea {
 .navbar {
     background-color: #46008C;
 }
+    .navbar .navbar-brand {
+        width: 65px;
+        background-image: url(/Images/TVInfoWebsiteIcon.png)
+    }
 
 .jumbotron {
+    -ms-border-top-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+    -ms-border-top-right-radius: 0 !important;
+    border-top-right-radius: 0 !important;
     background-color: #ECD9FF;
+    background-image: url(/Images/TVInfoBackgroud.png)
 }
 
 .btn-primary {
     background-color: #46008C;
     border-color: #290053;
 }
+    .btn-primary:hover {
+        background-color: #9c66d2;
+    }

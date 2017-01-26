@@ -6,7 +6,7 @@
 
 <h2>Shows</h2>
 
-@foreach (var show in Model.OrderBy(x => x))
+@foreach (var show in Model.OrderBy(x => x.Name))
 {
     <span>@show.Name</span><br/>
 }
