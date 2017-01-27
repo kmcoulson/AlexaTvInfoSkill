@@ -80,7 +80,7 @@ namespace AlexaTVInfoSkill.Service
                 var lastEpisode = TvMaze.GetEpisode(show.Links.PreviousEpisode.Id.Value);
                 DateTime endDate;
                 if (!string.IsNullOrEmpty(lastEpisode.AirDate) && DateTime.TryParse(lastEpisode.AirDate, out endDate))
-                    return new AlexaResponse($"{show.Name} ended on {endDate:yyyyMMdd}.", cardTitle, $"{show.Name} ended on <say-as interpret-as='date'>{endDate:dd MMM yyyy}</say-as>.");
+                    return new AlexaResponse($"{show.Name} ended on <say-as interpret-as='date'>{endDate:yyyyMMdd}</say-as>.", cardTitle, $"{show.Name} ended on {endDate:dd MMM yyyy}.");
 
                 return new AlexaResponse($"{show.Name} has ended.", cardTitle);
             }

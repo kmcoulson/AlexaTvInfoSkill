@@ -11,9 +11,9 @@ namespace AlexaTVInfoSkill.Service
 {
     public class DocumentRepository<T> where T : class
     {
-        private const string EndPoint = "https://alexaskillslog.documents.azure.com:443/";
-        private const string AuthKey = "eVX7rgd6BXD2BsNHoh2qODDAoSRXrYSgfFLKuA3jcnAzKOGYOylYLwsmnZFMHtFfiN0o6TkgeW4uAMAYUfhfTQ==";
-        private const string DatabaseId = "AlexaSkillsLog";
+        private static readonly string EndPoint = Config.DocumentDb.Endpoint;
+        private static readonly string AuthKey = Config.DocumentDb.AuthKey;
+        private static readonly string DatabaseId = Config.DocumentDb.DatabaseId;
         private const string CollectionId = "TVInfo";
         private static DocumentClient _client;
 
