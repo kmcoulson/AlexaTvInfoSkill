@@ -248,6 +248,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\ShowsController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -367,6 +368,8 @@
     <Content Include="Views\Shows\Index.cshtml" />
     <Content Include="SpeechAssets\IntentSchema-US.json" />
     <Content Include="Views\Logs\Index.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\Run.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

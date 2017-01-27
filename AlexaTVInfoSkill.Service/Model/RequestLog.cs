@@ -41,7 +41,21 @@ namespace AlexaTVInfoSkill.Service.Model
                     case "AMAZON.HelpIntent":
                         return "Help";
                     default:
-                        return "Unknown Intent";
+                    {
+                        switch (Type)
+                        {
+                            case "LaunchRequest":
+                                return "Launch";
+                            case "CancelRequest":
+                                return "Cancel";
+                            case "StopRequest":
+                                return "Stop";
+                            case "HelpRequest":
+                                return "Help";
+                                default:
+                                return "Unknown Intent";
+                        }
+                    }
                 }
             }
         }
@@ -60,7 +74,7 @@ namespace AlexaTVInfoSkill.Service.Model
         public string ShowName {
             get
             {
-                if (Slots == null || !Slots.Any()) return "Unknown";
+                if (Slots == null || !Slots.Any()) return "-";
 
                 if (Slots.Any(x => x.Name == "showtitle")) return Slots.First(x => x.Name == "showtitle").Value;
 

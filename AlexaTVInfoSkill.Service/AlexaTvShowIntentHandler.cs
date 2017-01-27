@@ -13,7 +13,7 @@ namespace AlexaTVInfoSkill.Service
             if (string.IsNullOrEmpty(showName)) return new AlexaResponse("Sorry, I didn't hear a show name.", "Show not found");
 
             var show = TvMaze.FindShow(showName);
-            if (show == null) return new AlexaResponse("Sorry, I wasn't able to find the show you asked for, please try again.", "Show not found");
+            if (show == null) return new AlexaResponse($"Sorry, I wasn't able to find the show '{showName}', please try again.", "Show not found");
             
             switch (intent)
             {
@@ -86,17 +86,20 @@ namespace AlexaTVInfoSkill.Service
             }
 
             if (show.Links.NextEpisode?.Id == null)
-                return new AlexaResponse($"Sorry, I don't know when {show.Name} will continue yet.", cardTitle);
+                return new AlexaResponse($"Sorry, the air date for the next episode of {show.Name} hasn't been released yet.", cardTitle);
 
             var nextEpisode = TvMaze.GetEpisode(show.Links.NextEpisode.Id.Value);
             DateTime airDate;
             if (!string.IsNullOrEmpty(nextEpisode.AirDate) && DateTime.TryParse(nextEpisode.AirDate, out airDate))
+            {
+                var episodeName = nextEpisode.Name == "TBA" ? "" : $", called {nextEpisode.Name},";
                 return new AlexaResponse(
-                    $"Season {nextEpisode.Season} episode {nextEpisode.Number} of {show.Name}, called {nextEpisode.Name}, airs on <say-as interpret-as='date'>{airDate:yyyyMMdd}</say-as>.", 
+                    $"Season {nextEpisode.Season} episode {nextEpisode.Number} of {show.Name}{episodeName} airs on <say-as interpret-as='date'>{airDate:yyyyMMdd}</say-as>.",
                     cardTitle,
                     $"Season {nextEpisode.Season} - Episode {nextEpisode.Name}\n{nextEpisode.Name}\nAirs {airDate:dd MMM yyyy}.");
+            }
 
-            return new AlexaResponse($"Sorry, I don't know when {show.Name} will continue yet.", cardTitle);
+            return new AlexaResponse($"Sorry, the air date for the next episode of {show.Name} hasn't been released yet.", cardTitle);
         }
 
         private static AlexaResponse GetCast(TvShow show)
@@ -120,49 +123,6 @@ namespace AlexaTVInfoSkill.Service
             return new AlexaResponse(outputSpeechText, cardTitle, cardContent);
         }
 
-        private static AlexaResponse GetPersonOrCharacter(TvShow show, string name)
-        {
-            if (name == null)
-                return null;
-
-            var cardTitle = $"{name.ToCamelCase()} in {show.Name}";
-
-            var cast = TvMaze.GetShowCast(show.Id);
-            if (cast == null || !cast.Any()) return null;
-
-            var personNameParts = name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-
-            var people = cast.Where(x => personNameParts.All(c => x.Person.Name.ToLower().Contains(c.ToLower()))).ToDictionary(x => x, x => "Person");
-            var characters = cast.Where(x => personNameParts.All(c => x.Person.Name.ToLower().Contains(c.ToLower()))).ToDictionary(x => x, x => "Character");
-            var results = people.Concat(characters).ToList();
-
-            if (!results.Any()) return null;
-
-            var firstResult = results.FirstOrDefault();
-
-            var outputSpeechText = new StringBuilder($"{GetOutputSpeechText(firstResult.Key.Person.Name, firstResult.Key.Character.Name, firstResult.Value)} in {show.Name}.");
-            if (people.Count > 1)
-            {
-                outputSpeechText.Append(" In addition: ");
-                foreach (var castMember in results)
-                {
-                    if (castMember.Key == results.First().Key) continue;
-                    if (castMember.Key == results.Last().Key) outputSpeechText.Append("and ");
-                    var lineEnd = castMember.Key != results.Last().Key ? ", " : "";
-
-                    outputSpeechText.Append($"{GetOutputSpeechText(castMember.Key.Person.Name, castMember.Key.Character.Name, castMember.Value)}{lineEnd}");
-                }
-            }
-            outputSpeechText.Append(".");
-
-            return new AlexaResponse(outputSpeechText.ToString(), cardTitle);
-        }
-
-        private static string GetOutputSpeechText(string personName, string characterName, string type)
-        {
-            return type == "Person" ? $"{personName} played {characterName}" : $"{characterName} was played by {personName}";
-        }
-
         private static AlexaResponse GetPerson(TvShow show, string personName)
         {
             if (personName == null)
@@ -179,7 +139,7 @@ namespace AlexaTVInfoSkill.Service
             var person = people.FirstOrDefault();
             if (person == null) return null;
             
-            var outputSpeechText = new StringBuilder($"{person.Person.Name} played {person.Character.Name} in {show.Name}.");
+            var outputSpeechText = new StringBuilder($"{person.Person.Name} played {person.Character.Name} in {show.Name}");
             if (people.Count > 1)
             {
                 outputSpeechText.Append(" In addition: ");
@@ -213,7 +173,7 @@ namespace AlexaTVInfoSkill.Service
             var person = people.FirstOrDefault();
             if (person == null) return null;
 
-            var outputSpeechText = new StringBuilder($"{person.Character.Name} was played by {person.Person.Name} in {show.Name}.");
+            var outputSpeechText = new StringBuilder($"{person.Character.Name} was played by {person.Person.Name} in {show.Name}");
             if (people.Count > 1)
             {
                 outputSpeechText.Append(" In addition: ");

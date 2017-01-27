@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Test Runner";
+}
+
+<h2>Test Runner</h2>
+
+@using (Html.BeginForm("Run", "Test"))
+{
+    <div class="form-group">
+        <label for="value">Test Value</label>
+        @Html.TextBox("value", null, new { @class = "form-control", placeholder = "Enter a value" })
+    </div>
+    <button class="btn btn-primary" type="submit">Run</button>
+
+}

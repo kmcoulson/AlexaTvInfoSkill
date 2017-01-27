@@ -1,0 +1,16 @@
+﻿@model AlexaTVInfoSkill.Service.Model.TvShow
+
+@{
+    ViewBag.Title = "Test Results";
+}
+
+<h2>Test Results</h2>
+
+@if (Model != null)
+{
+    <span>@Model.Name</span><br />
+}
+else
+{
+    <span> No results.</span>
+}

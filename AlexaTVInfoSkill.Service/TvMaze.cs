@@ -42,7 +42,28 @@ namespace AlexaTVInfoSkill.Service
         {
             var endPoint = string.Concat("/search/shows?q=", query);
             var response = GetResponse<List<ShowSearchContainer>>(endPoint);
+
+            if (!response.Any()) response = FindShowRetry(query);
+
             return response.Any() ? response.OrderByDescending(x => x.Score).First().Show : null;
+        }
+
+        private static List<ShowSearchContainer> FindShowRetry(string query)
+        {
+            query = query.TrimWords(new[] {"the next", "next", "the", "tv show", "will be"});
+
+            const string endPoint = "/search/shows?q=";
+            var queryValues = query.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries).ToList();
+            var response = new List<ShowSearchContainer>();
+
+            while (!response.Any() && queryValues.Count > 0)
+            {
+                queryValues.RemoveAt(queryValues.Count - 1);
+                var newQuery = string.Join(" ", queryValues.ToArray());
+                response = GetResponse<List<ShowSearchContainer>>(string.Concat(endPoint, newQuery));
+            }
+
+            return response;
         }
 
         public static List<CastMember> GetShowCast(int id)
