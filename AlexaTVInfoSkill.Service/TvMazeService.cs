@@ -89,13 +89,13 @@ namespace AlexaTVInfoSkill.Service
         public ITvEpisode GetNextEpisode(string showId)
         {
             var show = GetShow(showId);
-            return show == null ? null : GetEpisode(show.Links.NextEpisode.Id);
+            return show?.Links?.NextEpisode == null ? null : GetEpisode(show.Links.NextEpisode.Id);
         }
 
         public ITvEpisode GetLastEpisode(string showId)
         {
             var show = GetShow(showId);
-            return show == null ? null : GetEpisode(show.Links.PreviousEpisode.Id);
+            return show?.Links?.PreviousEpisode == null ? null : GetEpisode(show.Links.PreviousEpisode.Id);
         }
     }
 }

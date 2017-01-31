@@ -112,15 +112,17 @@ namespace AlexaTVInfoSkill.Service
                 return new AlexaResponse($"{name} ended on <say-as interpret-as='date'>{episode.OriginalAirDate.Value:yyyyMMdd}</say-as>.", cardTitle, $"{name} ended on {episode.OriginalAirDate.Value:dd MMM yyyy}.");
             }
 
-            if (!episode.OriginalAirDate.HasValue)
+            if (episode?.OriginalAirDate == null)
                 return new AlexaResponse($"Sorry, the air date for the next episode of {name} hasn't been released yet.", cardTitle);
 
             var episodeName = episode.Name == "TBA" || episode.Name == $"Episode #{episode.Season}.{episode.Number}" ? "" : $", called {episode.Name},";
-            var airTime = episode.OriginalAirDate.Value.ToString("HHmm") != "0000" ? $" at <say-as interpret-as='time'>{episode.OriginalAirDate.Value:HH:mm}</say-as>" : "";
+            var airTime = episode.OriginalAirDate.Value.ToString("HHmm") != "0000" ? episode.OriginalAirDate.Value.ToString("HH:mm") : "";
+            var airTimeSpeechOutput = !string.IsNullOrEmpty(airTime) ? $" at <say-as interpret-as='time'>{airTime}</say-as>" : "";
+            var airTimeTextOutput = !string.IsNullOrEmpty(airTime) ? $" at {airTime}" : "";
             return new AlexaResponse(
-                $"Season {episode.Season} episode {episode.Number} of {name}{episodeName} airs on <say-as interpret-as='date'>{episode.OriginalAirDate.Value:yyyyMMdd}</say-as>{airTime}.",
+                $"Season {episode.Season} episode {episode.Number} of {name}{episodeName} airs on <say-as interpret-as='date'>{episode.OriginalAirDate.Value:yyyyMMdd}</say-as>{airTimeSpeechOutput}.",
                 cardTitle,
-                $"Season {episode.Season} - Episode {episode.Number}\n{episodeName}\nAirs {episode.OriginalAirDate.Value:dd MMM yyyy}{airTime}.");
+                $"Season {episode.Season} - Episode {episode.Number}\n{episodeName}\nAirs {episode.OriginalAirDate.Value:dd MMM yyyy}{airTimeTextOutput}.");
         }
 
         private static AlexaResponse GetCast(string name, List<CastMember> cast)
