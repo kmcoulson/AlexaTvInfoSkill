@@ -247,6 +247,7 @@
     <Compile Include="Controllers\AlexaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogsController.cs" />
+    <Compile Include="Controllers\RefreshController.cs" />
     <Compile Include="Controllers\ShowsController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
@@ -348,7 +349,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="SpeechAssets\SampleUtterances-UK.txt" />
+    <Content Include="SpeechAssets\SampleUtterances.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -369,7 +370,7 @@
     <Content Include="SpeechAssets\IntentSchema-US.json" />
     <Content Include="Views\Logs\Index.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
-    <Content Include="Views\Test\Run.cshtml" />
+    <Content Include="Views\Refresh\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

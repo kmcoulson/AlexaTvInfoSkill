@@ -1,16 +1,28 @@
-﻿
+﻿@model List<Tuple<DateTime, string, string, string>>
+
 @{
-    ViewBag.Title = "Test Runner";
+    ViewBag.Title = "Test Logs";
 }
 
-<h2>Test Runner</h2>
+<h2>TV Info Request Logs</h2>
 
-@using (Html.BeginForm("Run", "Test"))
-{
-    <div class="form-group">
-        <label for="value">Test Value</label>
-        @Html.TextBox("value", null, new { @class = "form-control", placeholder = "Enter a value" })
-    </div>
-    <button class="btn btn-primary" type="submit">Run</button>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Request</th>
+            <th>New Match</th>
+            <th>Result</th>
+        </tr>
+    </thead>
 
-}
+    <tbody>
+        @foreach (var requestLog in Model.OrderByDescending(x => x.Item1))
+        {
+            <tr>
+                <td>@requestLog.Item2</td>
+                <td>@requestLog.Item3</td>
+                <td>@requestLog.Item4</td>
+            </tr>
+        }
+    </tbody>
+</table>

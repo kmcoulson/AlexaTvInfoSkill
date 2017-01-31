@@ -9,7 +9,7 @@ namespace AlexaTVInfoSkill.Service
     {
         public async Task<IEnumerable<RequestLog>> Get(DateTime? start = null, DateTime? end = null)
         {
-            var items = await DocumentRepository<RequestLog>.GetItemsAsync(d => d.RequestId != null);
+            var items = await DocumentRepository<RequestLog>.GetItemsAsync();
             return items;
         }
 

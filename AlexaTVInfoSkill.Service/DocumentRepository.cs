@@ -14,12 +14,13 @@ namespace AlexaTVInfoSkill.Service
         private static readonly string EndPoint = Config.DocumentDb.Endpoint;
         private static readonly string AuthKey = Config.DocumentDb.AuthKey;
         private static readonly string DatabaseId = Config.DocumentDb.DatabaseId;
-        private const string CollectionId = "TVInfo";
+        private static string _collectionId;
         private static DocumentClient _client;
 
-        public static void Initialize()
+        public static void Initialize(string collectionId)
         {
             _client = new DocumentClient(new Uri(EndPoint), AuthKey);
+            _collectionId = collectionId;
             CreateDatabaseIfNotExistsAsync().Wait();
             CreateCollectionIfNotExistsAsync().Wait();
         }
@@ -47,7 +48,7 @@ namespace AlexaTVInfoSkill.Service
         {
             try
             {
-                await _client.ReadDocumentCollectionAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId));
+                await _client.ReadDocumentCollectionAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionId));
             }
             catch (DocumentClientException e)
             {
@@ -55,7 +56,7 @@ namespace AlexaTVInfoSkill.Service
                 {
                     await _client.CreateDocumentCollectionAsync(
                         UriFactory.CreateDatabaseUri(DatabaseId),
-                        new DocumentCollection { Id = CollectionId },
+                        new DocumentCollection { Id = _collectionId },
                         new RequestOptions { OfferThroughput = 1000 });
                 }
                 else
@@ -68,7 +69,7 @@ namespace AlexaTVInfoSkill.Service
         public static async Task<IEnumerable<T>> GetItemsAsync()
         {
             var query = _client.CreateDocumentQuery<T>(
-                UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId))
+                UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionId))
                 .AsDocumentQuery();
 
             var results = new List<T>();
@@ -83,7 +84,7 @@ namespace AlexaTVInfoSkill.Service
         public static async Task<IEnumerable<T>> GetItemsAsync(Expression<Func<T, bool>> predicate)
         {
             var query = _client.CreateDocumentQuery<T>(
-                UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId))
+                UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionId))
                 .Where(predicate)
                 .AsDocumentQuery();
 
@@ -98,7 +99,7 @@ namespace AlexaTVInfoSkill.Service
 
         public static async Task<Document> CreateItemAsync(T item)
         {
-            return await _client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId), item);
+            return await _client.UpsertDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionId), item);
         }
     }
 }

@@ -12,6 +12,14 @@ ShowNextEpisodeIntent when {showtitle} is on
 ShowNextEpisodeIntent when {showtitle} is on next
 ShowNextEpisodeIntent when {showtitle} is next on
 ShowNextEpisodeIntent when {showtitle} back is on
+ShowNextEpisodeIntent if {showtitle} been picked up
+ShowNextEpisodeIntent has {showtitle} been picked up
+ShowNextEpisodeIntent has {showtitle} going to be picked up
+ShowNextEpisodeIntent has {showtitle} been renewed
+ShowNextEpisodeIntent has {showtitle} going to be renewed
+ShowNextEpisodeIntent is there going to be another season of {showtitle}
+ShowNextEpisodeIntent what time is {showtitle} on
+ShowNextEpisodeIntent when does {showtitle} return next season
 
 ShowCastIntent who stars in {showtitle}
 ShowCastIntent who starred in {showtitle}

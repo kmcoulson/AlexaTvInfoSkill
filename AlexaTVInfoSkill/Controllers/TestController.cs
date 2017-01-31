@@ -1,8 +1,13 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Mvc;
 using AlexaTVInfoSkill.Service;
+using AlexaTVInfoSkill.Service.Model;
 
 namespace AlexaTVInfoSkill.Controllers
 {
@@ -13,16 +18,16 @@ namespace AlexaTVInfoSkill.Controllers
             if (!Request.IsLocal)
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
 
-            return View();
-        }
+            var model = new List<Tuple<DateTime, string, string, string>>();
 
-        [System.Web.Mvc.HttpPost]
-        public ActionResult Run(string value)
-        {
-            if (!Request.IsLocal)
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
+            var logs = Task.Run(DocumentRepository<RequestLog>.GetItemsAsync).Result;
 
-            var model = TvMaze.FindShow(value);
+            foreach (var requestLog in logs.Where(x => x.ShowName != "-").OrderByDescending(x => x.TimeStamp))
+            {
+                var match = TvInfoService.FindShow(requestLog.ShowName, "en-GB", true);
+
+                model.Add(new Tuple<DateTime, string, string, string>(requestLog.TimeStamp, requestLog.ShowName, match != null ? match.Name : "Unmatched", requestLog.ResponseText));
+            }
 
             return View(model);
         }

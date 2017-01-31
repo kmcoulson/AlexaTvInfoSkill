@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 using AlexaTVInfoSkill.Service;
 
 namespace AlexaTVInfoSkill.Controllers
@@ -7,7 +8,7 @@ namespace AlexaTVInfoSkill.Controllers
     {
         public ActionResult Index()
         {
-            var model = TvMaze.GetShows();
+            var model = TvInfoService.GetShows();
 
             return View(model);
         }

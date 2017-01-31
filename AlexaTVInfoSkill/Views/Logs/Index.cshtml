@@ -20,7 +20,7 @@
         @foreach (var requestLog in Model.OrderByDescending(x => x.TimeStamp))
         {
             <tr>
-                <td>@requestLog.TimeStamp.ToString("g")</td>
+                <td>@requestLog.TimeStamp.ToString("dd MMM yyyy HH:mm")</td>
                 <td>@requestLog.IntentName</td>
                 <td>@requestLog.ShowName</td>
                 <td>@requestLog.ResponseText</td>

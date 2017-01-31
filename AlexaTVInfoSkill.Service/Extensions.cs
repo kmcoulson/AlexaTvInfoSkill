@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security.Permissions;
 using System.Text;
 
 namespace AlexaTVInfoSkill.Service
@@ -32,6 +34,24 @@ namespace AlexaTVInfoSkill.Service
             }
 
             return newValue.Trim();
+        }
+
+        public static string RemoveStopwords(this string input)
+        {
+            var words = input.Split(new [] {" "}, StringSplitOptions.RemoveEmptyEntries);
+            var found = new Dictionary<string, bool>();
+            var builder = new StringBuilder();
+            foreach (var currentWord in words)
+            {
+                var lowerWord = currentWord.ToLower();
+                if (!StopWordLibrary.Words().ContainsKey(lowerWord) &&
+                    !found.ContainsKey(lowerWord))
+                {
+                    builder.Append(currentWord).Append(' ');
+                    found.Add(lowerWord, true);
+                }
+            }
+            return builder.ToString().Trim();
         }
     }
 }

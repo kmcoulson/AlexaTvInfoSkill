@@ -71,6 +71,9 @@ namespace AlexaTVInfoSkill.Service.Model
             [JsonProperty("requestId")]
             public string RequestId { get; set; }
 
+            [JsonProperty("locale")]
+            public string Locale { get; set; }
+
             [JsonProperty("timestamp")]
             public string TimestampEpoch
             {

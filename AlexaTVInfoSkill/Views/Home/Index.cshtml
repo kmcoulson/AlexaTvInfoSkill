@@ -1,4 +1,6 @@
-﻿<div class="jumbotron">
+﻿@model Dictionary<DateTime, string>
+
+<div class="jumbotron">
     <h1>TV Info</h1>
     <p class="lead">TV Info allows the whole family to get up to date information about their favourite TV shows just by asking!</p>
     <p><a href="https://www.amazon.co.uk/dp/B01N9TUMKF/ref=sr_1_1?s=digital-skills&ie=UTF8&qid=1485450025&sr=1-1&keywords=tv+info" class="btn btn-primary btn-lg">Get the skill &raquo;</a></p>
@@ -18,5 +20,14 @@
         <h2>TV Info</h2>
         <p>Want some TV info right now? Check out the shows page to find what you need.</p>
         <p><a class="btn btn-default" href="/Shows">Shows &raquo;</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Release notes</h2>
+        @foreach (var release in Model.OrderByDescending(x => x.Key))
+        {
+            <p><strong>@release.Key.ToString("dd MMM yyyy HH:mm")</strong><br />@Html.Raw(release.Value)</p>
+        }
     </div>
 </div>

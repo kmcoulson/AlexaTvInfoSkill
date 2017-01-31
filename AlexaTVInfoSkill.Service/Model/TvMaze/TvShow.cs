@@ -2,29 +2,47 @@
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace AlexaTVInfoSkill.Service.Model
+namespace AlexaTVInfoSkill.Service.Model.TvMaze
 {
     [DataContract]
-    public class TvShow
+    public class TvShow : ITvShow
     {
         [DataMember(Name = "id")]
-        public int Id { get; set; }
+        public string Id { get; set; }
+
         [DataMember(Name = "url")]
         public Uri Url { get; set; }
+
         [DataMember(Name = "name")]
         public string Name { get; set; }
-        [DataMember(Name = "type")]
-        public string Type { get; set; }
+
+        [DataMember(Name = "namePart")]
+        public string[] NameParts => Name.ToLower().Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
+
         [DataMember(Name = "language")]
         public string Language { get; set; }
+
         [DataMember(Name = "genres")]
         public string[] Genres { get; set; }
+
         [DataMember(Name = "status")]
         public string Status { get; set; }
+
         [DataMember(Name = "runtime")]
-        public int? Runtime { get; set; }
+        public string Runtime { get; set; }
+
         [DataMember(Name = "premiered")]
         public string Premiered { get; set; }
+
+        public DateTime? StartDate {
+            get
+            {
+                DateTime value;
+                if (DateTime.TryParse(Premiered, out value))
+                    return value;
+                return null;
+            }
+        }
 
         private string _summary;
         [DataMember(Name = "summary")]
@@ -60,6 +78,9 @@ namespace AlexaTVInfoSkill.Service.Model
 
         [DataMember(Name = "_links")]
         public Links Links { get; set; }
+
+        [DataMember(Name = "externals")]
+        public Externals ExternalIds { get; set; }
     }
 
     [DataContract]
@@ -78,19 +99,23 @@ namespace AlexaTVInfoSkill.Service.Model
     [DataContract]
     public class Link
     {
-        public int? Id => GetIdFromUrl(Href);
+        public string Id => GetIdFromUrl(Href);
 
         [DataMember(Name = "href")]
         public string Href { get; set; }
 
-        private static int? GetIdFromUrl(string url)
+        private static string GetIdFromUrl(string url)
         {
             if (string.IsNullOrEmpty(url)) return null;
             var urlSplit = url.Split(new[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
-            var idString = urlSplit.LastOrDefault();
-            int id;
-            if (int.TryParse(idString, out id)) return id;
-            return null;
+            return urlSplit.LastOrDefault();
         }
+    }
+
+    [DataContract]
+    public class Externals
+    {
+        [DataMember(Name = "imdb")]
+        public string ImdbId { get; set; }
     }
 }

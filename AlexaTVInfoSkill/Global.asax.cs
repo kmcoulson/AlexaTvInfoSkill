@@ -4,6 +4,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using AlexaTVInfoSkill.Service;
 using AlexaTVInfoSkill.Service.Model;
+using AlexaTVInfoSkill.Service.Model.TvMaze;
+using AlexaTVInfoSkill.Service.Scheduler;
 
 namespace AlexaTVInfoSkill
 {
@@ -17,7 +19,10 @@ namespace AlexaTVInfoSkill
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            DocumentRepository<RequestLog>.Initialize();
+            DocumentRepository<RequestLog>.Initialize("TVInfo");
+            DocumentRepository<TvShow>.Initialize("TVShows");
+
+            SchedulingHost.Start();
         }
     }
 }
